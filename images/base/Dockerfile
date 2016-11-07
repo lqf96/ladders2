@@ -1,6 +1,6 @@
 FROM alpine:edge
 MAINTAINER lqf.1996121@gmail.com
 
-RUN apk update && apk add openvpn
+ADD ./entryrt /usr/local/bin/
 
-EXPOSE 53/udp
+CMD ["entrypoint"]

@@ -1,0 +1,11 @@
+#! /usr/bin/env entryrt
+STORE_BACKEND="file"
+STORE_BASE_PATH="/root/store"
+
+start() {
+    # Fetch configuration
+    fetch /conf/h2proxy/squid.conf /etc/squid/squid.conf
+
+    # Start service
+    exec squid -N
+}

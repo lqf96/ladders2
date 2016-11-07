@@ -1,0 +1,14 @@
+#! /usr/bin/env entryrt
+STORE_BACKEND="file"
+STORE_BASE_PATH="/root/store"
+
+start() {
+    # Fetch configuration and certificate
+    mkdir -p /etc/nghttpx
+    fetch /conf/h2proxy/nghttpx.conf /etc/nghttpx
+    fetch /private/h2proxy/h2proxy.crt /etc/nghttpx
+    fetch /private/h2proxy/h2proxy.key /etc/nghttpx
+
+    # Start daemon
+    exec nghttpx
+}

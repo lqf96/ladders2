@@ -1,0 +1,14 @@
+h2proxy-nghttpx:
+    image: lqfdocker/http451:h2proxy-nghttpx
+    volumes:
+        - ../..:/root/store
+    links:
+        - h2proxy-squid
+    ports:
+        - "8443:443"
+    restart: always
+h2proxy-squid:
+    image: lqfdocker/http451:h2proxy-squid
+    volumes:
+        - ../..:/root/store
+    restart: always
