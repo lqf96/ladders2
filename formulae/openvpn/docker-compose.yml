@@ -1,0 +1,11 @@
+openvpn:
+    image: lqfdocker/http451:openvpn
+    volumes:
+        - ../..:/root/store
+    ports:
+        - "53:1194/udp"
+    devices:
+        - "/dev/net/tun:/dev/net/tun"
+    cap_add:
+        - NET_ADMIN
+    restart: always

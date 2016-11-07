@@ -1,0 +1,21 @@
+#! /usr/bin/env entryrt
+STORE_BACKEND="file"
+STORE_BASE_PATH="/root/store"
+
+start() {
+    # Fetch configuration and certificate
+    fetch /conf/openvpn/server.conf /etc/openvpn
+    fetch /conf/openvpn/checkpsw.sh /etc/openvpn
+    fetch /private/openvpn/passwd /etc/openvpn
+    fetch /private/openvpn/ca.crt /etc/openvpn
+    fetch /private/openvpn/server.key /etc/openvpn
+    fetch /private/openvpn/server.crt /etc/openvpn
+    fetch /private/share/dhparam.pem /etc/openvpn
+    chmod +x /etc/openvpn/checkpsw.sh
+
+    mkdir -p /var/log/openvpn
+    # iptable rule
+    iptables -t nat -A POSTROUTING -s 172.25.0.0/16 -j SNAT --to $(hostname -i)
+    # Start daemon
+    exec openvpn --config /etc/openvpn/server.conf
+}
